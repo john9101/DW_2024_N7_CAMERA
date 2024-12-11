@@ -131,19 +131,20 @@ class BMDCrawler:
             ]
             data.append(dict(zip(column_names, column_values)))
 
-        df = pd.DataFrame(data)
-        current_datetime = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
-
-        seperator = config.get("seperator")
-        format = config.get("format")
-        source_file_location = config.get("source_file_location")
-        records_count = len(data)
-
-        file_name = f"{resource_name}_data_{current_datetime}.{format}"
-        file_path = f"{source_file_location}/{file_name}"
-        df.to_csv(file_path, index=False, sep=seperator)
-        file_size = os.path.getsize(file_path)
+        # df = pd.DataFrame(data)
+        #
+        # extension = config.get("extension")
+        # seperator = config.get("seperator")
+        # format = config.get("format")
+        # source_file_location = config.get("source_file_location")
+        # records_count = len(data)
+        #
+        # file_name = f"{resource_name}_data_{datetime.now().strftime(format)}.{extension}"
+        # file_path = f"{source_file_location}/{file_name}"
+        # df.to_csv(file_path, index=False, sep=seperator)
+        # file_size = os.path.getsize(file_path)
         driver.quit()
 
-        return file_name, file_size, records_count
+        # return file_name, file_size, records_count
+        return data
 

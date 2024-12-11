@@ -17,7 +17,7 @@ def load_into_temporary(date, config_id):
         column_names = config.get("column_names")
         pre_process_message = log.get("message")
         ep_message = f"Executing load data from {file_path} file into {temp_table} table"
-        ControlUtil.update_log(log_id, ep_message, 7, control_connection)
+        ControlUtil.update_log(log_id, ep_message, 15, control_connection)
         try:
             StagingUtil.load_into_temporary(temp_table, file_path, column_names, staging_connection)
             message = f"Successful load data from {file_path} file into {temp_table} table"

@@ -12,7 +12,7 @@ import os
 class KMCrawler:
 
     @staticmethod
-    def crawl_cameras_data(config, resource_name, resource_crawl_url):
+    def crawl_cameras_data(column_names, resource_crawl_url):
         options = Options()
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
@@ -20,7 +20,7 @@ class KMCrawler:
         options.add_argument('--incognito')
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-        column_names = config.get("column_names").split(',')
+        column_names = column_names.split(',')
 
         driver.get(resource_crawl_url)
         while True:
@@ -109,18 +109,7 @@ class KMCrawler:
 
             data.append(dict(zip(column_names, column_values)))
 
-        df = pd.DataFrame(data)
-        current_datetime = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
-
-        seperator = config.get("seperator")
-        format = config.get("format")
-        source_file_location = config.get("source_file_location")
-        records_count = len(data)
-
-        file_name = f"{resource_name}_data_{current_datetime}.{format}"
-        file_path = f"{source_file_location}/{file_name}"
-        df.to_csv(file_path, index=False, sep=seperator)
-        file_size = os.path.getsize(file_path)
         driver.quit()
 
-        return file_name, file_size, records_count
+        return data
+        # return file_name, file_size, records_count, data

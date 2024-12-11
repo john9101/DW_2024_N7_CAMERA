@@ -3,28 +3,28 @@
         <host>localhost</host>
         <port>3306</port>
         <db_name>staging</db_name>
-        <user>root</user>
+        <use_namer>root</use_namer>
         <password>Dong@98109810100</password>
     </database>
     <database name="control">
         <host>localhost</host>
         <port>3306</port>
         <db_name>control</db_name>
-        <user>root</user>
+        <user_name>root</user_name>
         <password>Dong@98109810100</password>
     </database>
     <database name="data-warehouse">
         <host>localhost</host>
         <port>3306</port>
         <db_name>data-warehouse</db_name>
-        <user>root</user>
+        <user_name>root</user_name>
         <password>Dong@98109810100</password>
     </database>
     <database name="data-mart">
         <host>localhost</host>
         <port>3306</port>
         <db_name>data-mart</db_name>
-        <user>root</user>
+        <user_name>root</user_name>
         <password>Dong@98109810100</password>
     </database>
 </config>

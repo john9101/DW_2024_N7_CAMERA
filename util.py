@@ -1,14 +1,14 @@
 import os
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from datetime import datetime
 
 import mysql.connector
 import xml.etree.ElementTree as ET
 from mysql.connector import Error
 from os.path import dirname, join
 import smtplib
-
-from numpy.compat import os_fspath
+import pandas as pd
 
 
 class Util:
@@ -23,7 +23,7 @@ class Util:
                 "host": root.find(".//database/host").text,
                 "port": root.find(".//database/port").text,
                 "database": root.find(".//database/db_name").text,
-                "user": root.find(".//database/user").text,
+                "user": root.find(".//database/user_name").text,
                 "password": root.find(".//database/password").text,
                 "allow_local_infile": True
             }
@@ -65,6 +65,16 @@ class Util:
                 server.sendmail(mail_server, mail_recipient, message.as_string())
         except Exception as e:
             return f"Failed to send email: {e}"
+
+    @staticmethod
+    def save_data_into_file(extension, seperator, format, data, source_file_location, resource_name):
+        df = pd.DataFrame(data)
+        records_count = len(data)
+        file_name = f"{resource_name}_data_{datetime.now().strftime(format)}.{extension}"
+        file_path = f"{source_file_location}/{file_name}"
+        df.to_csv(file_path, index=False, sep=seperator)
+        file_size = os.path.getsize(file_path)
+        return file_size, records_count, file_name
 
 
 
